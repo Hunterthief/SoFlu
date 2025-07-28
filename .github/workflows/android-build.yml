@@ -50,13 +50,21 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Gradle (if no wrapper)
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Create local.properties file for SDK path
+        run: |
+          cat > android/local.properties << 'EOF'
+          sdk.dir=${{ env.ANDROID_SDK_ROOT }}
+          EOF
+
+      - name: Setup Gradle (system)
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build APK with system Gradle
+      - name: Build APK using system Gradle
         run: |
-          echo "Contents of android/ directory:"
-          ls android/
+          echo "Contents of android/ folder:" && ls android/
           cd android
           gradle assembleDebug
 
