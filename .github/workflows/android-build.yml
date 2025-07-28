@@ -1,4 +1,4 @@
-name: Build Android APK (simple)
+name: Build Android APK (using capacitor-android-action)
 
 on:
   workflow_dispatch:
@@ -25,9 +25,9 @@ jobs:
           CI="" npm run build
 
       - name: Run Capacitor Android action
-        uses: Narottam04/action-capacitor-android@v2
+        uses: Narottam04/action-capacitor-android@v1.0.0
         with:
-          project_dir: '.'       # root directory
+          project_dir: '.'       # root of your code
           build_command: 'npm run build'
           web_dir: 'build'
           app_id: 'com.soflu.app'
