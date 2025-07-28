@@ -1,4 +1,4 @@
-name: Android APK (no repo changes)
+name: Build Android APK (simple)
 
 on:
   workflow_dispatch:
@@ -7,11 +7,11 @@ on:
       - '*'
 
 jobs:
-  build-apk:
+  android-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -19,57 +19,20 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build web app
-        env:
-          CI: ""
-        run: npm run build
-
-      - name: Create temporary Capacitor config
+      - name: Install dependencies & build web app
         run: |
-          cat > capacitor.config.json << 'EOF'
-          {
-            "appId": "com.soflu.app",
-            "appName": "SoFlu",
-            "webDir": "build",
-            "bundledWebRuntime": false
-          }
-          EOF
+          npm install
+          CI="" npm run build
 
-      - name: Install Capacitor Android
-        run: |
-          npm install @capacitor/cli @capacitor/core @capacitor/android
-
-      - name: Sync Capacitor
-        run: npx cap sync android
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      - name: Run Capacitor Android action
+        uses: Narottam04/action-capacitor-android@v2
         with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Create minimal local.properties
-        run: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
-
-      - name: Patch settings.gradle to remove Flutter reference
-        run: |
-          cp android/settings.gradle android/settings.gradle.bak
-          echo "include ':app'" > android/settings.gradle
-
-      - name: Build APK
-        run: |
-          cd android
-          ./gradlew assembleDebug
-
-      - name: Restore settings.gradle
-        run: mv android/settings.gradle.bak android/settings.gradle
+          project_dir: '.'       # root directory
+          build_command: 'npm run build'
+          web_dir: 'build'
+          app_id: 'com.soflu.app'
+          app_name: 'SoFlu'
+          gradle_task: 'assembleDebug'
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
