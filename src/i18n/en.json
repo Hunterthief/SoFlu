@@ -1,0 +1,60 @@
+{
+  "app": {
+    "title": "SoFlu",
+    "subtitle": "Interactive Language Learning for Children"
+  },
+  "navigation": {
+    "home": "Home",
+    "parentGuide": "Parent Guide",
+    "speechTherapy": "Speech Therapy",
+    "skills": "Skill Development",
+    "stories": "Educational Stories",
+    "games": "Games",
+    "tips": "Tips",
+    "stuttering": "Stuttering Information",
+    "lisping": "Lisping Information"
+  },
+  "skills": {
+    "animals": "Animals",
+    "fruits": "Fruits",
+    "vegetables": "Vegetables",
+    "colors": "Colors",
+    "shapes": "Shapes",
+    "numbers": "Numbers",
+    "bodyParts": "Body Parts",
+    "clothing": "Clothing",
+    "transportation": "Transportation",
+    "careers": "Careers",
+    "householdItems": "Household Items",
+    "schoolSupplies": "School Supplies",
+    "insects": "Insects"
+  },
+  "stories": {
+    "lazyRabbit": "The Lazy Rabbit",
+    "proudMouse": "The Proud Mouse"
+  },
+  "games": {
+    "cardGame": "Card Game",
+    "phonemePractice": "Phoneme Practice",
+    "sentenceBuilder": "Sentence Builder",
+    "rhymeTime": "Rhyme Time",
+    "listeningGame": "Listening Game"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "playAudio": "Play Audio",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "language": "Language"
+  },
+  "audio": {
+    "loading": "Loading audio...",
+    "error": "Audio not available",
+    "playing": "Playing...",
+    "paused": "Paused"
+  }
+}

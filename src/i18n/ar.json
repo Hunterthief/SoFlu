@@ -1,0 +1,60 @@
+{
+  "app": {
+    "title": "سوفلو",
+    "subtitle": "تعلم اللغة التفاعلي للأطفال"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "parentGuide": "الدليل الأبوي",
+    "speechTherapy": "تخاطب",
+    "skills": "تنمية مهارات",
+    "stories": "تربية بالقصة",
+    "games": "ألعاب",
+    "tips": "نصائح",
+    "stuttering": "معلومات عن التلعثم",
+    "lisping": "اللدغة"
+  },
+  "skills": {
+    "animals": "حيوانات",
+    "fruits": "فواكه",
+    "vegetables": "خضراوات",
+    "colors": "الألوان",
+    "shapes": "الأشكال",
+    "numbers": "الأرقام",
+    "bodyParts": "أجزاء الجسم",
+    "clothing": "ملابس",
+    "transportation": "المواصلات",
+    "careers": "الوظائف",
+    "householdItems": "أدوات منزل",
+    "schoolSupplies": "أدوات مدرسية",
+    "insects": "حشرات"
+  },
+  "stories": {
+    "lazyRabbit": "قصة الأرنب الكسول",
+    "proudMouse": "قصة الفأر المغرور"
+  },
+  "games": {
+    "cardGame": "لعبة الكروت",
+    "phonemePractice": "تمرين الأصوات",
+    "sentenceBuilder": "بناء الجمل",
+    "rhymeTime": "وقت القافية",
+    "listeningGame": "الاستماع والتنفيذ"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "playAudio": "تشغيل الصوت",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "darkMode": "الوضع المظلم",
+    "lightMode": "الوضع المضيء",
+    "language": "اللغة"
+  },
+  "audio": {
+    "loading": "جاري تحميل الصوت...",
+    "error": "الصوت غير متوفر",
+    "playing": "يتم التشغيل...",
+    "paused": "متوقف"
+  }
+}

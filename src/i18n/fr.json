@@ -1,0 +1,60 @@
+{
+  "app": {
+    "title": "SoFlu",
+    "subtitle": "Apprentissage Interactif des Langues pour Enfants"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "parentGuide": "Guide Parental",
+    "speechTherapy": "Orthophonie",
+    "skills": "Développement des Compétences",
+    "stories": "Histoires Éducatives",
+    "games": "Jeux",
+    "tips": "Conseils",
+    "stuttering": "Informations sur le Bégaiement",
+    "lisping": "Informations sur le Zézaiement"
+  },
+  "skills": {
+    "animals": "Animaux",
+    "fruits": "Fruits",
+    "vegetables": "Légumes",
+    "colors": "Couleurs",
+    "shapes": "Formes",
+    "numbers": "Nombres",
+    "bodyParts": "Parties du Corps",
+    "clothing": "Vêtements",
+    "transportation": "Transport",
+    "careers": "Métiers",
+    "householdItems": "Objets Ménagers",
+    "schoolSupplies": "Fournitures Scolaires",
+    "insects": "Insectes"
+  },
+  "stories": {
+    "lazyRabbit": "Le Lapin Paresseux",
+    "proudMouse": "La Souris Fière"
+  },
+  "games": {
+    "cardGame": "Jeu de Cartes",
+    "phonemePractice": "Pratique des Phonèmes",
+    "sentenceBuilder": "Constructeur de Phrases",
+    "rhymeTime": "Temps des Rimes",
+    "listeningGame": "Jeu d'Écoute"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "playAudio": "Lire l'Audio",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "darkMode": "Mode Sombre",
+    "lightMode": "Mode Clair",
+    "language": "Langue"
+  },
+  "audio": {
+    "loading": "Chargement de l'audio...",
+    "error": "Audio non disponible",
+    "playing": "En cours de lecture...",
+    "paused": "En pause"
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "main": [
+    {
+      "id": "parent-guide",
+      "labelKey": "navigation.parentGuide",
+      "route": "/parent-guide",
+      "icon": "👨‍👩‍👧‍👦",
+      "coverImage": "/content/images/covers/parent-guide.jpg",
+      "children": [
+        {
+          "id": "tips",
+          "labelKey": "navigation.tips",
+          "route": "/parent-guide/tips",
+          "icon": "📝"
+        }
+      ]
+    },
+    {
+      "id": "speech-therapy",
+      "labelKey": "navigation.speechTherapy",
+      "route": "/speech-therapy",
+      "icon": "🗣️",
+      "coverImage": "/content/images/covers/speech-therapy.jpg",
+      "children": [
+        {
+          "id": "stuttering",
+          "labelKey": "navigation.stuttering",
+          "route": "/speech-therapy/stuttering",
+          "icon": "💬"
+        },
+        {
+          "id": "lisping",
+          "labelKey": "navigation.lisping",
+          "route": "/speech-therapy/lisping",
+          "icon": "👅"
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "labelKey": "navigation.skills",
+      "route": "/skills",
+      "icon": "🌟",
+      "coverImage": "/content/images/covers/skills.jpg",
+      "children": [
+        {
+          "id": "animals",
+          "labelKey": "skills.animals",
+          "route": "/skills/animals",
+          "icon": "🐾",
+          "coverImage": "/content/images/skills/animals/cover.jpg"
+        },
+        {
+          "id": "fruits",
+          "labelKey": "skills.fruits",
+          "route": "/skills/fruits",
+          "icon": "🍎",
+          "coverImage": "/content/images/skills/fruits/cover.jpg"
+        },
+        {
+          "id": "vegetables",
+          "labelKey": "skills.vegetables",
+          "route": "/skills/vegetables",
+          "icon": "🥕",
+          "coverImage": "/content/images/skills/vegetables/cover.jpg"
+        },
+        {
+          "id": "colors",
+          "labelKey": "skills.colors",
+          "route": "/skills/colors",
+          "icon": "🎨",
+          "coverImage": "/content/images/skills/colors/cover.jpg"
+        },
+        {
+          "id": "shapes",
+          "labelKey": "skills.shapes",
+          "route": "/skills/shapes",
+          "icon": "🔷",
+          "coverImage": "/content/images/skills/shapes/cover.jpg"
+        },
+        {
+          "id": "numbers",
+          "labelKey": "skills.numbers",
+          "route": "/skills/numbers",
+          "icon": "🔢",
+          "coverImage": "/content/images/skills/numbers/cover.jpg"
+        },
+        {
+          "id": "body-parts",
+          "labelKey": "skills.bodyParts",
+          "route": "/skills/body-parts",
+          "icon": "👤",
+          "coverImage": "/content/images/skills/body-parts/cover.jpg"
+        },
+        {
+          "id": "clothing",
+          "labelKey": "skills.clothing",
+          "route": "/skills/clothing",
+          "icon": "👕",
+          "coverImage": "/content/images/skills/clothing/cover.jpg"
+        },
+        {
+          "id": "transportation",
+          "labelKey": "skills.transportation",
+          "route": "/skills/transportation",
+          "icon": "🚗",
+          "coverImage": "/content/images/skills/transportation/cover.jpg"
+        },
+        {
+          "id": "careers",
+          "labelKey": "skills.careers",
+          "route": "/skills/careers",
+          "icon": "👨‍⚕️",
+          "coverImage": "/content/images/skills/careers/cover.jpg"
+        },
+        {
+          "id": "household-items",
+          "labelKey": "skills.householdItems",
+          "route": "/skills/household-items",
+          "icon": "🏠",
+          "coverImage": "/content/images/skills/household-items/cover.jpg"
+        },
+        {
+          "id": "school-supplies",
+          "labelKey": "skills.schoolSupplies",
+          "route": "/skills/school-supplies",
+          "icon": "📚",
+          "coverImage": "/content/images/skills/school-supplies/cover.jpg"
+        },
+        {
+          "id": "insects",
+          "labelKey": "skills.insects",
+          "route": "/skills/insects",
+          "icon": "🐛",
+          "coverImage": "/content/images/skills/insects/cover.jpg"
+        }
+      ]
+    },
+    {
+      "id": "stories",
+      "labelKey": "navigation.stories",
+      "route": "/stories",
+      "icon": "📚",
+      "coverImage": "/content/images/covers/stories.jpg",
+      "children": [
+        {
+          "id": "lazy-rabbit",
+          "labelKey": "stories.lazyRabbit",
+          "route": "/stories/lazy-rabbit",
+          "icon": "🐰"
+        },
+        {
+          "id": "proud-mouse",
+          "labelKey": "stories.proudMouse",
+          "route": "/stories/proud-mouse",
+          "icon": "🐭"
+        }
+      ]
+    },
+    {
+      "id": "games",
+      "labelKey": "navigation.games",
+      "route": "/games",
+      "icon": "🎮",
+      "coverImage": "/content/images/covers/games.jpg",
+      "children": [
+        {
+          "id": "card-game",
+          "labelKey": "games.cardGame",
+          "route": "/games/card-game",
+          "icon": "🃏"
+        },
+        {
+          "id": "phoneme-practice",
+          "labelKey": "games.phonemePractice",
+          "route": "/games/phoneme-practice",
+          "icon": "🎵"
+        },
+        {
+          "id": "sentence-builder",
+          "labelKey": "games.sentenceBuilder",
+          "route": "/games/sentence-builder",
+          "icon": "🧩"
+        },
+        {
+          "id": "rhyme-time",
+          "labelKey": "games.rhymeTime",
+          "route": "/games/rhyme-time",
+          "icon": "🎶"
+        },
+        {
+          "id": "listening-game",
+          "labelKey": "games.listeningGame",
+          "route": "/games/listening-game",
+          "icon": "👂"
+        }
+      ]
+    }
+  ]
+}
