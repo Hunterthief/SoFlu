@@ -9,11 +9,12 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -21,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build web app (ignore lint warnings)
+      - name: Build web app
         env:
           CI: ""
         run: npm run build
@@ -37,14 +38,14 @@ jobs:
           }
           EOF
 
-      - name: Install Capacitor dependencies
+      - name: Install Capacitor Android
         run: |
           npm install @capacitor/cli @capacitor/core @capacitor/android
 
-      - name: Sync Capacitor Android project
+      - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Set up Java for Gradle
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -53,25 +54,22 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Create local.properties stub for SDK and Flutter
+      - name: Create minimal local.properties
         run: |
-          cat > android/local.properties << 'EOF'
-          sdk.dir=${{ env.ANDROID_SDK_ROOT }}
-          flutter.sdk=/usr/bin/fake_flutter_sdk
-          EOF
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
-      - name: Patch settings.gradle to remove Flutter loader
+      - name: Patch settings.gradle to remove Flutter reference
         run: |
           cp android/settings.gradle android/settings.gradle.bak
-          sed -i '/pluginManagement/,/include ":app"/ d' android/settings.gradle
+          echo "include ':app'" > android/settings.gradle
 
-      - name: Setup system Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Build APK using system Gradle
+      - name: Build APK
         run: |
           cd android
-          gradle assembleDebug
+          ./gradlew assembleDebug
+
+      - name: Restore settings.gradle
+        run: mv android/settings.gradle.bak android/settings.gradle
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
