@@ -9,7 +9,6 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -53,18 +52,18 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Create local.properties file for SDK path
+      - name: Create local.properties for SDK and Flutter stub
         run: |
           cat > android/local.properties << 'EOF'
           sdk.dir=${{ env.ANDROID_SDK_ROOT }}
+          flutter.sdk=/usr/bin/fake_flutter_sdk
           EOF
 
-      - name: Setup Gradle (system)
+      - name: Setup system Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build APK using system Gradle
         run: |
-          echo "Contents of android/ folder:" && ls android/
           cd android
           gradle assembleDebug
 
