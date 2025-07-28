@@ -105,11 +105,13 @@ const Breadcrumbs = () => {
               {isLast ? (
                 <CurrentPage>
                   {crumb.icon && <span style={{ marginRight: '4px' }}>{crumb.icon}</span>}
+                  }
                   {t(crumb.labelKey)}
                 </CurrentPage>
               ) : (
                 <BreadcrumbLink to={crumb.route}>
                   {crumb.icon && <span style={{ marginRight: '4px' }}>{crumb.icon}</span>}
+                  }
                   {t(crumb.labelKey)}
                 </BreadcrumbLink>
               )}

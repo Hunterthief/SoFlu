@@ -220,6 +220,7 @@ const ImageGallery = ({ category, title }) => {
   return (
     <GalleryContainer>
       {title && <h1>{title}</h1>}
+      }
       
       <GalleryGrid>
         {items.map((item, index) => (
