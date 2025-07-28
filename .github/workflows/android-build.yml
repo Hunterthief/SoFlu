@@ -1,4 +1,4 @@
-name: Build Android APK (using capacitor-android-action)
+name: Build Android APK (direct CI build)
 
 on:
   workflow_dispatch:
@@ -7,32 +7,63 @@ on:
       - '*'
 
 jobs:
-  android-build:
+  android:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Node setup and install
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - run: npm install
 
-      - name: Install dependencies & build web app
+      - name: Build web assets (ignore lint warnings)
+        env:
+          CI: ""
+        run: npm run build
+
+      - name: Generate Capacitor config
         run: |
-          npm install
-          CI="" npm run build
+          cat > capacitor.config.json << 'EOF'
+          {
+            "appId": "com.soflu.app",
+            "appName": "SoFlu",
+            "webDir": "build",
+            "bundledWebRuntime": false
+          }
+          EOF
 
-      - name: Run Capacitor Android action
-        uses: Narottam04/action-capacitor-android@v1.0.0
+      - name: Install Capacitor modules
+        run: npm install @capacitor/cli @capacitor/core @capacitor/android
+
+      - name: Sync Capacitor Android
+        run: npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          project_dir: '.'       # root of your code
-          build_command: 'npm run build'
-          web_dir: 'build'
-          app_id: 'com.soflu.app'
-          app_name: 'SoFlu'
-          gradle_task: 'assembleDebug'
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+
+      - name: Sanitize settings.gradle
+        run: echo 'include ":app"' > android/settings.gradle
+
+      - name: Setup Gradle CLI
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK
+        run: |
+          cd android
+          gradle assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
