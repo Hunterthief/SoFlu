@@ -1,10 +1,10 @@
-name: Android APK (no-code-change)
+name: Android APK (no repo changes)
 
 on:
-  workflow_dispatch:       # lets you click "Run workflow" in the Actions tab
+  workflow_dispatch:
   push:
     tags:
-      - '*'                # optional: pushing a tag also triggers a build
+      - '*'
 
 jobs:
   build-apk:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'   # use your project’s Node version if needed
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -26,8 +26,7 @@ jobs:
           CI: ""
         run: npm run build
 
-      # Create Capacitor config only in the build runner (not committed)
-      - name: Create Capacitor config
+      - name: Create temporary Capacitor config
         run: |
           cat > capacitor.config.json << 'EOF'
           {
@@ -38,27 +37,28 @@ jobs:
           }
           EOF
 
-      - name: Install Capacitor CLI + Android platform/tools
+      - name: Install Capacitor dependencies
         run: |
           npm install @capacitor/cli @capacitor/core @capacitor/android
-          if [ ! -d android ]; then
-            npx cap add android
-          fi
-          npx cap copy android
 
-      - name: Set up Java
+      - name: Sync Capacitor Android project
+        run: npx cap sync android
+
+      - name: Set up Java (for Gradle)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      # Ensures SDK tools are available & licenses accepted
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Gradle (if no wrapper)
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Build APK via Capacitor CLI
-        run: npx cap build android
-
+      - name: Build APK with system Gradle
+        run: |
+          echo "Contents of android/ directory:"
+          ls android/
+          cd android
+          gradle assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
