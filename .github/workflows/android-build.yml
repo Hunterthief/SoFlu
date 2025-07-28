@@ -1,0 +1,64 @@
+name: Android APK (no-code-change)
+
+on:
+  workflow_dispatch:       # lets you click "Run workflow" in the Actions tab
+  push:
+    tags:
+      - '*'                # optional: pushing a tag also triggers a build
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'   # use your project’s Node version if needed
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      # Create Capacitor config only in the build runner (not committed)
+      - name: Create Capacitor config
+        run: |
+          cat > capacitor.config.json << 'EOF'
+          {
+            "appId": "com.soflu.app",
+            "appName": "SoFlu",
+            "webDir": "build",
+            "bundledWebRuntime": false
+          }
+          EOF
+
+      - name: Install Capacitor & Android tooling
+        run: |
+          npm i -D @capacitor/cli
+          npm i @capacitor/core @capacitor/android
+          npx cap add android
+          npx cap copy android
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Ensures SDK tools are available & licenses accepted
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
