@@ -1,4 +1,4 @@
-name: Build Android APK (skip Flutter in CI)
+name: Build Android APK (skip Flutter completely)
 
 on:
   workflow_dispatch:
@@ -9,69 +9,91 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
 
-      - name: Install & build web assets
-        run: |
-          npm install
-          CI="" npm run build
+    - name: Install & build web assets
+      run: |
+        npm install
+        CI="" npm run build
 
-      - name: Generate capacitor.config.json
-        run: |
-          cat > capacitor.config.json <<EOF
-          {
-            "appId":"com.soflu.app",
-            "appName":"SoFlu",
-            "webDir":"build",
-            "bundledWebRuntime":false
+    - name: Create capacitor.config.json
+      run: |
+        cat > capacitor.config.json <<EOF
+        {
+          "appId":"com.soflu.app",
+          "appName":"SoFlu",
+          "webDir":"build",
+          "bundledWebRuntime":false
+        }
+        EOF
+
+    - name: Install Capacitor modules
+      run: npm install @capacitor/cli @capacitor/core @capacitor/android
+
+    - name: Sync Android project
+      run: npx cap sync android
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '17'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Create local.properties
+      run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+
+    - name: Overwrite settings.gradle
+      run: echo 'include(":app")' > android/settings.gradle
+
+    - name: Replace app/build.gradle with minimal configuration
+      run: |
+        cat > android/app/build.gradle <<EOF
+        plugins {
+          id 'com.android.application'
+        }
+
+        android {
+          compileSdkVersion 33
+          defaultConfig {
+            applicationId "com.soflu.app"
+            minSdkVersion 21
+            targetSdkVersion 33
+            versionCode 1
+            versionName "1.0"
           }
-          EOF
+          buildTypes {
+            release {
+              minifyEnabled false
+            }
+          }
+        }
 
-      - name: Install Capacitor modules
-        run: npm install @capacitor/cli @capacitor/core @capacitor/android
+        dependencies {
+          implementation fileTree(dir: "libs", include: ["*.jar"])
+        }
+        EOF
 
-      - name: Sync Android Project
-        run: npx cap sync android
+    - name: Setup system Gradle
+      uses: gradle/actions/setup-gradle@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
+    - name: Build debug APK
+      run: |
+        cd android
+        gradle assembleDebug
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Setup local.properties
-        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
-
-      - name: Remove Flutter logic from settings and build config
-        run: |
-          cp android/settings.gradle android/settings.gradle.bak
-          echo 'include(":app")' > android/settings.gradle
-
-          cp android/app/build.gradle android/app/build.gradle.bak
-          # Remove plugin and flutter-specific sections
-          sed -i '/dev.flutter.flut*/d' android/app/build.gradle
-          sed -i '/flutter.sdk/d' android/app/build.gradle
-          sed -i '/flutter.*/d' android/app/build.gradle
-
-      - name: Setup system Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Build APK
-        run: |
-          cd android
-          gradle assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug.apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug.apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
