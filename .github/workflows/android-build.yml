@@ -38,12 +38,13 @@ jobs:
           }
           EOF
 
-      - name: Install Capacitor & Android tooling
+      - name: Install Capacitor + Android platform (skip if exists)
         run: |
-          npm i -D @capacitor/cli
-          npm i @capacitor/core @capacitor/android
-          npx cap add android
-          npx cap copy android
+         npm install @capacitor/core @capacitor/android
+         if [ ! -d android ]; then
+           npx cap add android
+         fi
+         npx cap copy android
 
       - name: Set up Java
         uses: actions/setup-java@v4
