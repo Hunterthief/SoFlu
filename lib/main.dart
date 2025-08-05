@@ -7,15 +7,13 @@ import 'home_screen.dart';
 import 'widgets/screens/sign_in_screen.dart';
 import 'widgets/screens/sign_up_screen.dart';
 import 'widgets/screens/pop_up_screen.dart';
-//import 'widgets/custom_drawer.dart';
 import 'parent_guide_screen.dart';
 import 'Parent_guides/tips_screen.dart';
-//import 'video_screen.dart';
+import 'video_screen.dart';
 import 'stories_screen.dart';
 import 'skills_screen.dart';
 import 'games_screen.dart'; // Import the GamesScreen
 
-//this used to keep the project from expiring asdadsdasda
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -58,8 +56,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'SoFlu',
       theme: _darkMode ? darkTheme : lightTheme,
-      home: /* widget.isFirstRun ? VideoScreen() : */ HomeScreen(
-        // Commented out the VideoScreen start logic
+      home: widget.isFirstRun ? VideoScreen() : HomeScreen(
         toggleDarkMode: _toggleDarkMode,
         toggleChildMode: _toggleChildMode,
         isChildModeActive: _isChildModeActive,

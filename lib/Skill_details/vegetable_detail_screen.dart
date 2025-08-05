@@ -40,8 +40,8 @@ class _VegetableDetailScreenState extends State<VegetableDetailScreen> {
           'audio': 'assets/audio/skills/vegetables/beetroot.mp3'
         },
         {
-          'path': 'assets/images/skills/vegetables/brocoli.jpg',
-          'audio': 'assets/audio/skills/vegetables/brocoli.mp3'
+          'path': 'assets/images/skills/vegetables/brocli.jpg',
+          'audio': 'assets/audio/skills/vegetables/brocli.mp3'
         },
         {
           'path': 'assets/images/skills/vegetables/cauliflower.jpg',
@@ -129,7 +129,7 @@ class _VegetableDetailScreenState extends State<VegetableDetailScreen> {
         },
         {
           'path': 'assets/images/skills/vegetables/avocado.jpg',
-          'audio': 'assets/audio/skills/vegetables/avocade.mp3'
+          'audio': 'assets/audio/skills/vegetables/avocado.mp3'
         },
         // Add more vegetables as needed
       ];

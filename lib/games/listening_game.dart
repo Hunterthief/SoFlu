@@ -219,6 +219,7 @@ class _ListeningGameState extends State<ListeningGame> {
     // First select 5 single-target levels
     final singleTargetLevels =
         available.where((level) => level.target is String).toList();
+    singleTargetLevels.shuffle(_random);
     selectedLevels.addAll(singleTargetLevels.take(5));
 
     // Then select 5 two-step levels
@@ -227,6 +228,7 @@ class _ListeningGameState extends State<ListeningGame> {
             level.target is List<String> &&
             (level.target as List<String>).length == 2)
         .toList();
+    twoStepLevels.shuffle(_random);
     selectedLevels.addAll(twoStepLevels.take(5));
 
     // Finally select 5 three-step levels
@@ -235,10 +237,8 @@ class _ListeningGameState extends State<ListeningGame> {
             level.target is List<String> &&
             (level.target as List<String>).length == 3)
         .toList();
+    threeStepLevels.shuffle(_random);
     selectedLevels.addAll(threeStepLevels.take(5));
-
-    // Shuffle within each difficulty group to maintain progression but add variety
-    selectedLevels.shuffle(_random);
 
     return selectedLevels.take(count).toList();
   }
